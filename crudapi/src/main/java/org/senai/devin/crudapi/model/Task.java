@@ -1,5 +1,6 @@
 package org.senai.devin.crudapi.model;
 
+import org.senai.devin.crudapi.database.Database;
 import org.senai.devin.crudapi.model.enums.PriorityEnum;
 import org.senai.devin.crudapi.model.enums.StatusEnum;
 import org.senai.devin.crudapi.model.transport.TaskDTO;
@@ -23,7 +24,7 @@ public class Task {
     }
 
     public Task(TaskDTO taskDTO) {
-        this.id = taskDTO.id();
+        this.id = Database.setId();
         this.description = taskDTO.description();
         this.startDate = taskDTO.startDate();
         this.endDate = taskDTO.endDate();

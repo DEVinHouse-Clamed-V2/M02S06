@@ -2,6 +2,7 @@ package org.senai.devin.crudapi.controller;
 
 import jakarta.validation.Valid;
 import org.senai.devin.crudapi.exceptions.NotFoundException;
+import org.senai.devin.crudapi.model.enums.StatusEnum;
 import org.senai.devin.crudapi.model.transport.TaskDTO;
 import org.senai.devin.crudapi.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class TaskController {
 
     private final TaskService taskService;
 
+
     // Injeta o serviço de tarefas via construtor
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
@@ -29,8 +31,8 @@ public class TaskController {
     }
 
     @GetMapping // Mapeia requisições de tipo GET
-    public ResponseEntity<List<TaskDTO>> list() {
-        List<TaskDTO> response = this.taskService.listAll();
+    public ResponseEntity<List<TaskDTO>> list(@RequestParam(name = "status", required = false) StatusEnum status, @RequestParam(name = "assignee", required = false) String name) {
+        List<TaskDTO> response = this.taskService.listAll(status, name);
         if (response.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }

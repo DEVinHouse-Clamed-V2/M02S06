@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Database {
 
+    private static Integer nextId = 0;
     private static List<Task> tasks = new ArrayList<>();
 
     public static void add(Task task) {
@@ -26,5 +27,10 @@ public class Database {
         return Database.tasks.stream()
                 .filter(task -> task.getId().equals(id))
                 .findFirst().orElseThrow(() -> new NotFoundException("A tarefa não foi encontrada"));
+    }
+
+    public static Integer setId() {
+        Database.nextId = Database.nextId + 1;
+        return Database.nextId;
     }
 }
